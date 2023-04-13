@@ -11,7 +11,7 @@
     }],
     "require": {
         "php": "^7.1",
-        "stephpy/timeline": "^1.2",
+        "stephpy/timeline": "^1.0",
         "symfony/framework-bundle": "~2.0|~3.0|~4.0",
         "symfony/options-resolver": "~2.0|~3.0|~4.0"
     },
@@ -22,6 +22,9 @@
         "symfony/twig-bundle": "~2.8.13|~3.0|~4.0",
         "symfony/expression-language": "~2.0|~3.0|~4.0"
     },
+    "repositories": [
+        { "type": "git", "url": "git@github.com:fulll/timeline.git" }
+    ],
     "suggest": {
         "symfony/console": "List spreads and deploy timelines via a command",
         "snc/redis-bundle": "Use redis driver",
