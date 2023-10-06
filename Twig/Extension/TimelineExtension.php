@@ -296,7 +296,7 @@ class TimelineExtension extends \Twig_Extension
     {
         $action = $this->resolveAction($action, __METHOD__);
 
-        return vsprintf('%s:%s.html.twig', array(
+        return vsprintf('@%s/%s.html.twig', array(
                     $this->config['path'],
                     strtolower($action->getVerb()),
                 ));
@@ -347,7 +347,7 @@ class TimelineExtension extends \Twig_Extension
     {
         $action = $this->resolveAction($action, __METHOD__);
 
-        return vsprintf('%s:%s/%s.%s.twig', array(
+        return vsprintf('@%s/%s/%s.%s.twig', array(
                     $this->config['path'],
                     $context,
                     strtolower($action->getVerb()),
@@ -408,7 +408,7 @@ class TimelineExtension extends \Twig_Extension
     {
         $action = $this->resolveAction($action, __METHOD__);
 
-        return vsprintf('%s:%s.%s.html.twig', array(
+        return vsprintf('@%s/%s.%s.html.twig', array(
             $this->config['path'],
             strtolower($action->getVerb()),
             $locale,
