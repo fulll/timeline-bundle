@@ -1,34 +1,34 @@
 {# Widgets #}
 {% block subject_component %}
-{% spaceless %}
+{% apply spaceless %}
     {% set type = type|default('subject') %}
     {{ block('action_component') }}
-{% endspaceless %}
+{% endapply %}
 {% endblock subject_component %}
 
 {% block verb_component %}
-{% spaceless %}
+{% apply spaceless %}
     {% set type = type|default('verb') %}
     {{ block('action_component') }}
-{% endspaceless %}
+{% endapply %}
 {% endblock verb_component %}
 
 {% block action_component %}
-{% spaceless %}
+{% apply spaceless %}
     {% if text|default(false) %}
         {% set value = value|default(text) %}
     {% endif %}
     <span {{ block('component_attributes') }}>{{ value }}</span>
-{% endspaceless %}
+{% endapply %}
 {% endblock action_component %}
 
 {# Support #}
 {% block component_attributes %}
-{% spaceless %}
+{% apply spaceless %}
     {% if type|default(false) %}
         {% set attrClass = attr.class|default('') %}
         {% set attr = (attr|default([]))|merge({ class: (attrClass ~ ' ' ~ type)|trim }) %}
     {% endif %}
     {% for attrname,attrvalue in attr %}{{attrname}}="{{attrvalue}}" {% endfor %}
-{% endspaceless %}
+{% endapply %}
 {% endblock component_attributes %}
