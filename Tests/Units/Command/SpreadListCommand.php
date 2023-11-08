@@ -2,12 +2,12 @@
 
 namespace Spy\TimelineBundle\Tests\Units\Command;
 
-use mageekguy\atoum;
+use atoum\atoum\test;
 use Spy\TimelineBundle\Command\SpreadListCommand as TestedCommand;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Console\Application;
 
-class SpreadListCommand extends  atoum\test
+class SpreadListCommand extends test
 {
     public function beforeTestMethod($method)
     {
@@ -17,18 +17,10 @@ class SpreadListCommand extends  atoum\test
     public function testExecute()
     {
         $this->mockGenerator()->orphanize('__construct');
-        $deployer      = new \mock\Spy\Timeline\Spread\Deployer();
+        $deployer = new \mock\Spy\Timeline\Spread\Deployer();
         $deployer->getMockController()->getSpreads = array();
 
-        $container = new \mock\Symfony\Component\DependencyInjection\ContainerInterface();
-        $container->getMockController()->get = function ($v) use ($deployer) {
-            if ($v == 'spy_timeline.spread.deployer') {
-                return $deployer;
-            }
-        };
-
-        $command = new TestedCommand();
-        $command->setContainer($container);
+        $command = new TestedCommand($deployer);
 
         $application = new Application();
         $application->add($command);

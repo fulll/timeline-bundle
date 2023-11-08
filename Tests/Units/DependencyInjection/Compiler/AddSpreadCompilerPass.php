@@ -2,10 +2,10 @@
 
 namespace Spy\TimelineBundle\Tests\Units\DependencyInjection\Compiler;
 
-use mageekguy\atoum;
+use atoum\atoum\test;
 use Spy\TimelineBundle\DependencyInjection\Compiler\AddSpreadCompilerPass as TestedModel;
 
-class AddSpreadCompilerPass extends atoum\test
+class AddSpreadCompilerPass extends test
 {
     public function testProcess()
     {
@@ -18,13 +18,16 @@ class AddSpreadCompilerPass extends atoum\test
             ->and($this->mockGenerator->shuntParentClassCalls())
             ->and($definition = new \mock\Symfony\Component\DependencyInjection\Definition())
             ->and($this->calling($containerBuilder)->getAlias = function ($alias) {
-                return $alias;
+                return new \mock\Symfony\Component\DependencyInjection\Alias($alias);
             })
             ->and($this->calling($containerBuilder)->getDefinition = function () use ($definition) {
                 return $definition;
             })
             ->and($this->calling($containerBuilder)->findTaggedServiceIds = function () use ($taggedServicesResult) {
                 return $taggedServicesResult;
+            })
+            ->and($this->calling($definition)->addMethodCall = function () use ($definition) {
+                return $definition;
             })
             ->and($compiler = new TestedModel())
             ->when($compiler->process($containerBuilder))

@@ -2,12 +2,12 @@
 
 namespace Spy\TimelineBundle\Tests\Units\Command;
 
+use atoum\atoum\test;
 use Spy\TimelineBundle\Command\DeployActionCommand as TestedCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use mageekguy\atoum;
 
-class DeployActionCommand extends atoum\test
+class DeployActionCommand extends test
 {
     public function beforeTestMethod($method)
     {
@@ -19,20 +19,11 @@ class DeployActionCommand extends atoum\test
         $actionManager = new \mock\Spy\Timeline\Driver\ActionManagerInterface();
         $this->mockGenerator()->orphanize('__construct');
         $deployer      = new \mock\Spy\Timeline\Spread\Deployer();
+        $logger        = new \mock\Psr\Log\LoggerInterface();
 
         $actionManager->getMockController()->findActionsWithStatusWantedPublished = array();
 
-        $container = new \mock\Symfony\Component\DependencyInjection\ContainerInterface();
-        $container->getMockController()->get = function ($v) use ($actionManager, $deployer) {
-            if ($v == 'spy_timeline.action_manager') {
-                return $actionManager;
-            } elseif ($v == 'spy_timeline.spread.deployer') {
-                return $deployer;
-            }
-        };
-
-        $command = new TestedCommand();
-        $command->setContainer($container);
+        $command = new TestedCommand($actionManager, $deployer, $logger);
 
         $application = new Application();
         $application->add($command);
@@ -56,21 +47,12 @@ class DeployActionCommand extends atoum\test
         $this->mockGenerator()->orphanize('__construct');
         $deployer      = new \mock\Spy\Timeline\Spread\Deployer();
         $action        = new \mock\Spy\Timeline\Model\ActionInterface();
+        $logger        = new \mock\Psr\Log\LoggerInterface();
 
         $action->getMockController()->getId = 1;
         $actionManager->getMockController()->findActionsWithStatusWantedPublished = array($action);
 
-        $container = new \mock\Symfony\Component\DependencyInjection\ContainerInterface();
-        $container->getMockController()->get = function ($v) use ($actionManager, $deployer) {
-            if ($v == 'spy_timeline.action_manager') {
-                return $actionManager;
-            } elseif ($v == 'spy_timeline.spread.deployer') {
-                return $deployer;
-            }
-        };
-
-        $command = new TestedCommand();
-        $command->setContainer($container);
+        $command = new TestedCommand($actionManager, $deployer, $logger);
 
         $application = new Application();
         $application->add($command);

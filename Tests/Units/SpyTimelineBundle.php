@@ -2,13 +2,13 @@
 
 namespace Spy\TimelineBundle\Tests\Units;
 
-use mageekguy\atoum;
+use atoum\atoum\test;
 use Spy\TimelineBundle\SpyTimelineBundle as TestedModel;
 use Spy\TimelineBundle\DependencyInjection\Compiler\AddLocatorCompilerPass;
 use Spy\TimelineBundle\DependencyInjection\Compiler\AddDeliveryMethodCompilerPass;
 use Spy\TimelineBundle\DependencyInjection\Compiler\AddComponentDataResolver;
 
-class SpyTimelineBundle extends atoum\test
+class SpyTimelineBundle extends test
 {
     public function testBuild()
     {
