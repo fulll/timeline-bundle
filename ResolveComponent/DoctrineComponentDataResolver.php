@@ -92,7 +92,7 @@ class DoctrineComponentDataResolver implements ComponentDataResolverInterface
     /**
      * @param string $class
      *
-     * @return \Doctrine\Common\Persistence\Mapping\ClassMetadata|null
+     * @return \Doctrine\Persistence\Mapping\ClassMetadata|null
      */
     protected function getClassMetadata($class)
     {
