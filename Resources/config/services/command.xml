@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="\Spy\TimelineBundle\Command\DeployActionCommand">
+        <service id="Spy\TimelineBundle\Command\DeployActionCommand">
             <argument type="service" id="spy_timeline.action_manager" />
             <argument type="service" id="spy_timeline.spread.deployer" />
             <argument type="service" id="logger" />
@@ -13,7 +13,7 @@
             <tag name="console.command" />
         </service>
 
-        <service id="\Spy\TimelineBundle\Command\SpreadListCommand">
+        <service id="Spy\TimelineBundle\Command\SpreadListCommand">
             <argument type="service" id="spy_timeline.spread.deployer" />
 
             <tag name="console.command" />
