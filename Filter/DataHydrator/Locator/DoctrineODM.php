@@ -3,7 +3,7 @@
 namespace Spy\TimelineBundle\Filter\DataHydrator\Locator;
 
 use Spy\Timeline\Filter\DataHydrator\Locator\LocatorInterface;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 class DoctrineODM implements LocatorInterface
 {
@@ -58,9 +58,9 @@ class DoctrineODM implements LocatorInterface
 
         $qb    = $objectManager->getRepository($model)
             ->createQueryBuilder('r');
-            
-        $field = current($field); 
-        
+
+        $field = current($field);
+
         $results = $qb->field($field)->in($oids)
             ->getQuery()
             ->execute();

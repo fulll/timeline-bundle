@@ -10,20 +10,21 @@
         "homepage": "https://github.com/stephpy/timeline-bundle/contributors"
     }],
     "require": {
-        "php": "^7.1",
+        "php": ">=7.4",
         "stephpy/timeline": "^1.0",
-        "symfony/framework-bundle": "~2.0|~3.0|~4.0|~5.0",
-        "symfony/options-resolver": "~2.0|~3.0|~4.0|~5.0"
+        "symfony/framework-bundle": "~4.0|~5.0",
+        "symfony/options-resolver": "~4.0|~5.0",
+        "twig/twig": "~2.0"
     },
     "require-dev": {
-        "atoum/atoum": "1.*|3.*",
+        "atoum/atoum": "4.*",
         "doctrine/orm": "^2.6",
-        "symfony/console": "~2.0|~3.0|~4.0",
-        "symfony/twig-bundle": "~2.8.13|~3.0|~4.0",
-        "symfony/expression-language": "~2.0|~3.0|~4.0"
+        "symfony/console": "~4.0|~5.0",
+        "symfony/twig-bundle": "~4.0|~5.0",
+        "symfony/expression-language": "~4.0|~5.0"
     },
     "repositories": [
-        { "type": "git", "url": "git@github.com:fulll/timeline.git" }
+        { "type": "vcs", "url": "https://github.com/fulll/timeline.git" }
     ],
     "suggest": {
         "symfony/console": "List spreads and deploy timelines via a command",

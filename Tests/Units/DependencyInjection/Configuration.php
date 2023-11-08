@@ -2,11 +2,11 @@
 
 namespace Spy\TimelineBundle\Tests\Units\DependencyInjection;
 
-use mageekguy\atoum;
+use atoum\atoum\test;
 use Spy\TimelineBundle\DependencyInjection\Configuration as ConfigurationTested;
 use Symfony\Component\Config\Definition\Processor;
 
-class Configuration extends atoum\test
+class Configuration extends test
 {
     public function testNoConfiguration()
     {

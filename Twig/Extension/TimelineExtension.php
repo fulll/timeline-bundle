@@ -5,7 +5,11 @@ namespace Spy\TimelineBundle\Twig\Extension;
 use Spy\Timeline\Model\TimelineInterface;
 use Spy\Timeline\Model\ActionInterface;
 use Spy\TimelineBundle\Twig\TokenParser\TimelineActionThemeTokenParser;
-use Twig_TemplateInterface;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Extension\AbstractExtension;
+use Twig\TemplateWrapper;
+use Twig\TwigFunction;
 
 /**
  * "timeline_render" -> renders a timeline by getting the path of twig
@@ -17,10 +21,10 @@ use Twig_TemplateInterface;
  *
  * @author Stephane PY <py.stephane1@gmail.com>
  */
-class TimelineExtension extends \Twig_Extension
+class TimelineExtension extends AbstractExtension
 {
     /**
-     * @var \Twig_Environment
+     * @var Environment
      */
     private $twig;
 
@@ -30,9 +34,9 @@ class TimelineExtension extends \Twig_Extension
     private $config;
 
     /**
-     * @var Twig_TemplateInterface
+     * @var null|TemplateWrapper
      */
-    protected $template;
+    protected $template = null;
 
     /**
      * @var \SplObjectStorage
@@ -55,10 +59,10 @@ class TimelineExtension extends \Twig_Extension
     protected $varStack;
 
     /**
-     * @param \Twig_Environment $twig   Twig environment
-     * @param array             $config and array of configuration
+     * @param Environment $twig   Twig environment
+     * @param array       $config and array of configuration
      */
-    public function __construct(\Twig_Environment $twig, array $config, array $resources)
+    public function __construct(Environment $twig, array $config, array $resources)
     {
         $this->twig      = $twig;
         $this->config    = $config;
@@ -74,10 +78,10 @@ class TimelineExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('timeline' ,array($this, 'renderContextualTimeline'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('timeline_render', array($this, 'renderTimeline'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('timeline_component_render' ,array($this, 'renderActionComponent'), array('is_safe' => array('html'))),
-             new \Twig_SimpleFunction('i18n_timeline_render', array($this, 'renderLocalizedTimeline'), array('is_safe' => array('html'))),
+            new TwigFunction('timeline' ,array($this, 'renderContextualTimeline'), array('is_safe' => array('html'))),
+            new TwigFunction('timeline_render', array($this, 'renderTimeline'), array('is_safe' => array('html'))),
+            new TwigFunction('timeline_component_render' ,array($this, 'renderActionComponent'), array('is_safe' => array('html'))),
+            new TwigFunction('i18n_timeline_render', array($this, 'renderLocalizedTimeline'), array('is_safe' => array('html'))),
         );
     }
 
@@ -130,7 +134,7 @@ class TimelineExtension extends \Twig_Extension
 
         try {
             return $this->twig->render($template, $parameters);
-        } catch (\Twig_Error_Loader $e) {
+        } catch (LoaderError $e) {
             if (null !== $this->config['fallback']) {
                 return $this->twig->render($this->config['fallback'], $parameters);
             }
@@ -178,10 +182,8 @@ class TimelineExtension extends \Twig_Extension
         $action = $this->resolveAction($action, __METHOD__);
 
         if (null === $this->template) {
-            $this->template = reset($this->resources);
-            if (!$this->template instanceof \Twig_Template) {
-                $this->template = $this->twig->loadTemplate($this->template);
-            }
+            $template = reset($this->resources);
+            $this->template = $this->twig->load($template);
         }
 
         $componentVariables = $this->getComponentVariables($action, $component);
@@ -325,7 +327,7 @@ class TimelineExtension extends \Twig_Extension
 
         try {
             return $this->twig->render($template, $parameters);
-        } catch (\Twig_Error_Loader $e) {
+        } catch (LoaderError $e) {
             if (null !== $this->config['fallback']) {
                 return $this->twig->render($this->config['fallback'], $parameters);
             }
@@ -378,12 +380,12 @@ class TimelineExtension extends \Twig_Extension
 
         try {
             return $this->twig->render($template, $parameters);
-        } catch (\Twig_Error_Loader $e) {
+        } catch (LoaderError $e) {
             if ($locale != $this->config['i18n_fallback'] && null !== $this->config['i18n_fallback']) {
                 $fallbackTemplate = $this->getDefaultLocalizedTemplate($action, $this->config['i18n_fallback']);
                 try {
                     return $this->twig->render($fallbackTemplate, $parameters);
-                } catch (\Twig_Error_Loader $e) {
+                } catch (LoaderError $e) {
                     //Let's look at the default template
                 }
             }

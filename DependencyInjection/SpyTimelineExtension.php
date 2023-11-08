@@ -132,6 +132,8 @@ class SpyTimelineExtension extends Extension
         if ($resolveComponent['resolver'] === 'spy_timeline.resolve_component.doctrine') {
             $container->setParameter('spy_timeline.resolve_component.doctrine_registries', true);
         }
+
+        $loader->load('command.xml');
     }
 
     private function loadORMDriver($container, $loader, $config)

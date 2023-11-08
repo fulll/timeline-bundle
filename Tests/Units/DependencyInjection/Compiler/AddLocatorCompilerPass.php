@@ -2,10 +2,10 @@
 
 namespace Spy\TimelineBundle\Tests\Units\DependencyInjection\Compiler;
 
-use mageekguy\atoum;
+use atoum\atoum\test;
 use Spy\TimelineBundle\DependencyInjection\Compiler\AddLocatorCompilerPass as TestedModel;
 
-class AddLocatorCompilerPass extends atoum\test
+class AddLocatorCompilerPass extends test
 {
     public function testProcess()
     {
@@ -33,6 +33,9 @@ class AddLocatorCompilerPass extends atoum\test
                 }
             })
             ->and($this->calling($containerBuilder)->getDefinition = function () use ($definition) {
+                return $definition;
+            })
+            ->and($this->calling($definition)->addMethodCall = function () use ($definition) {
                 return $definition;
             })
             ->and($this->calling($containerBuilder)->findTaggedServiceIds = function () use ($taggedServicesResult) {
