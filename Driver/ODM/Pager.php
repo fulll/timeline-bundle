@@ -10,7 +10,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * @var array
      */
-    protected $items = array();
+    protected $items = [];
 
     /**
      * @var integer

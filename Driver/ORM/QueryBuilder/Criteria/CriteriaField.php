@@ -25,7 +25,7 @@ class CriteriaField
     /**
      * @var array
      */
-    protected $parameters = array();
+    protected $parameters = [];
 
     /**
      * @var string

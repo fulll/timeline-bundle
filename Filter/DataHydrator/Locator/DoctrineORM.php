@@ -54,7 +54,7 @@ class DoctrineORM implements LocatorInterface
 
         $fields     = $metadata->getIdentifier();
 
-        $oids = array();
+        $oids = [];
         foreach ($components as $component) {
             $oids[] = $component->getIdentifier();
         }
@@ -153,7 +153,7 @@ class DoctrineORM implements LocatorInterface
 
     protected function buildHashFromResult($metadata, $model, $result, array $fields)
     {
-        $identifiers = array();
+        $identifiers = [];
         foreach ($fields as $field) {
             $identifiers[$field] = (string) $metadata->reflFields[$field]->getValue($result);
         }

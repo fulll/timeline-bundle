@@ -10,7 +10,7 @@ use Doctrine\ORM\Query\Lexer;
  */
 class MultiConcatFunction extends FunctionNode
 {
-    protected $strings = array();
+    protected $strings = [];
 
     /**
      * @override

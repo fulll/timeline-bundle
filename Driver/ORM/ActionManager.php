@@ -47,7 +47,7 @@ class ActionManager extends AbstractActionManager implements ActionManagerInterf
     /**
      * {@inheritdoc}
      */
-    public function getSubjectActions(ComponentInterface $subject, array $options = array())
+    public function getSubjectActions(ComponentInterface $subject, array $options = [])
     {
         $resolver = new OptionsResolver();
         $resolver->setDefaults(array(
@@ -115,7 +115,7 @@ class ActionManager extends AbstractActionManager implements ActionManagerInterf
     public function findComponents(array $hashes)
     {
         if (empty($hashes)) {
-            return array();
+            return [];
         }
 
         $qb = $this->getComponentRepository()->createQueryBuilder('c');

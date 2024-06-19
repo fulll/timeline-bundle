@@ -14,7 +14,7 @@ class TimelineManager extends AbstractTimelineManager implements TimelineManager
     /**
      * {@inheritdoc}
      */
-    public function getTimeline(ComponentInterface $subject, array $options = array())
+    public function getTimeline(ComponentInterface $subject, array $options = [])
     {
         $resolver = new OptionsResolver();
         $resolver->setDefaults(array(
@@ -37,7 +37,7 @@ class TimelineManager extends AbstractTimelineManager implements TimelineManager
         $results = $this->resultBuilder->fetchResults($qb, $options['page'], $options['max_per_page'], $options['filter'], $options['paginate']);
 
         if ($options['group_by_action']) {
-            $actions = array();
+            $actions = [];
             foreach ($results as $result) {
                 $actions[] = $result->getAction();
             }
@@ -55,7 +55,7 @@ class TimelineManager extends AbstractTimelineManager implements TimelineManager
     /**
      * {@inheritdoc}
      */
-    public function countKeys(ComponentInterface $subject, array $options = array())
+    public function countKeys(ComponentInterface $subject, array $options = [])
     {
         $resolver = new OptionsResolver();
         $resolver->setDefaults(array(
@@ -74,7 +74,7 @@ class TimelineManager extends AbstractTimelineManager implements TimelineManager
     /**
      * {@inheritdoc}
      */
-    public function remove(ComponentInterface $subject, $actionId, array $options = array())
+    public function remove(ComponentInterface $subject, $actionId, array $options = [])
     {
         $resolver = new OptionsResolver();
         $resolver->setDefaults(array(
@@ -95,7 +95,7 @@ class TimelineManager extends AbstractTimelineManager implements TimelineManager
     /**
      * {@inheritdoc}
      */
-    public function removeAll(ComponentInterface $subject, array $options = array())
+    public function removeAll(ComponentInterface $subject, array $options = [])
     {
         $resolver = new OptionsResolver();
         $resolver->setDefaults(array(

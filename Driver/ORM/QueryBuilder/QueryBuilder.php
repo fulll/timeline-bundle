@@ -84,7 +84,7 @@ class QueryBuilder extends BaseQueryBuilder
      *
      * @return array|object
      */
-    public function execute(array $options = array())
+    public function execute(array $options = [])
     {
         $qb      = $this->createQueryBuilder();
 
@@ -105,7 +105,7 @@ class QueryBuilder extends BaseQueryBuilder
      */
     protected function filterSubjects($qb)
     {
-        $ids = array();
+        $ids = [];
         foreach ($this->getSubjects() as $component) {
             $id = $component->getId();
             if (empty($id)) {
@@ -136,7 +136,7 @@ class QueryBuilder extends BaseQueryBuilder
         $criteriaCollection = new CriteriaCollection();
         $visitor->visit($this->criterias, $criteriaCollection);
 
-        $parameters = array();
+        $parameters = [];
 
         foreach ($criteriaCollection as $criteria) {
             $parameters  = array_merge($criteria->getParameters(), $parameters);

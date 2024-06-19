@@ -8,7 +8,7 @@ use Twig\Node\Node;
 
 class TimelineActionThemeNode extends Node
 {
-    public function __construct(Node $action, Node $resources, array $attributes = array(), $lineno = 0, $tag = null)
+    public function __construct(Node $action, Node $resources, array $attributes = [], $lineno = 0, $tag = null)
     {
         parent::__construct(array('action' => $action, 'resources' => $resources), $attributes, $lineno, $tag);
     }

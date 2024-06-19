@@ -25,7 +25,7 @@ class TimelineActionThemeTokenParser extends AbstractTokenParser
 
         $action = $this->parser->getExpressionParser()->parseExpression();
 
-        $resources = array();
+        $resources = [];
         do {
             $resources[] = $this->parser->getExpressionParser()->parseExpression();
         } while (!$stream->test(Token::BLOCK_END_TYPE));
@@ -35,7 +35,7 @@ class TimelineActionThemeTokenParser extends AbstractTokenParser
         return new TimelineActionThemeNode(
             $action,
             new Node($resources),
-            array(),
+            [],
             $token->getLine(),
             $this->getTag()
         );

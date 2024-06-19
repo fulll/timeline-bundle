@@ -44,7 +44,7 @@ class ActionManager extends AbstractActionManager implements ActionManagerInterf
     /**
      * {@inheritdoc}
      */
-    public function getSubjectActions(ComponentInterface $subject, array $options = array())
+    public function getSubjectActions(ComponentInterface $subject, array $options = [])
     {
         $resolver = new OptionsResolver();
         $resolver->setDefaults(array(

@@ -39,8 +39,8 @@ class AddLocatorCompilerPass implements CompilerPassInterface
      */
     private function getLocatorDefinitionsFromParameter(ContainerBuilder $container)
     {
-        $data = array();
-        $locatorServiceIdArray = array();
+        $data = [];
+        $locatorServiceIdArray = [];
 
         //get the config array from the parameter.
         if ($container->hasParameter('spy_timeline.filter.data_hydrator.locators_config')) {
@@ -63,7 +63,7 @@ class AddLocatorCompilerPass implements CompilerPassInterface
      */
     private function getLocatorDefinitionsFromTaggedServices(ContainerBuilder $container)
     {
-        $data = array();
+        $data = [];
         //get the locatorServiceIdArray from the tagged services
         foreach ($container->findTaggedServiceIds('spy_timeline.filter.data_hydrator.locator') as $serviceId => $tags) {
             $data[$serviceId] = $container->getDefinition($serviceId);
