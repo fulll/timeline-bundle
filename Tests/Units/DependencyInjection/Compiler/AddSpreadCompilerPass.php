@@ -10,7 +10,7 @@ class AddSpreadCompilerPass extends test
     public function testProcess()
     {
         //there are 3 spreaders, with 2 of them under the same priority
-        $taggedServicesResult = array('foo.spread' => array(array('priority' => 10)), 'bar.spread' => array(), 'baz.spread' => array(array('priority' => 10)));
+        $taggedServicesResult = array('foo.spread' => array(array('priority' => 10)), 'bar.spread' => [], 'baz.spread' => array(array('priority' => 10)));
 
         $this
             ->given($containerBuilder = new \mock\Symfony\Component\DependencyInjection\ContainerBuilder())

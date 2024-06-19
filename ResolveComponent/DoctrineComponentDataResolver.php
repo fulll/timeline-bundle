@@ -48,7 +48,7 @@ class DoctrineComponentDataResolver implements ComponentDataResolverInterface
                 }
                 $many = count($fields) > 1;
 
-                $identifier = array();
+                $identifier = [];
                 foreach ($fields as $field) {
                     $getMethod = sprintf('get%s', ucfirst($field));
                     $value = (string) $model->{$getMethod}();

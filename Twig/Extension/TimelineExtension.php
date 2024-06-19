@@ -8,6 +8,7 @@ use Spy\TimelineBundle\Twig\TokenParser\TimelineActionThemeTokenParser;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Extension\AbstractExtension;
+use Twig\Template;
 use Twig\TemplateWrapper;
 use Twig\TwigFunction;
 
@@ -69,7 +70,7 @@ class TimelineExtension extends AbstractExtension
         $this->resources = $resources;
         $this->blocks    = new \SplObjectStorage();
         $this->themes    = new \SplObjectStorage();
-        $this->varStack  = array();
+        $this->varStack  = [];
     }
 
     /**
@@ -96,21 +97,13 @@ class TimelineExtension extends AbstractExtension
         );
     }
 
-    /**
-     * @param object $entity entity
-     * @param string $method method
-     *
-     * @return string
-     */
-    protected function resolveAction($entity, $method)
+    protected function resolveAction(ActionInterface|TimelineInterface $entity): ActionInterface
     {
         if ($entity instanceof ActionInterface) {
             return $entity;
-        } elseif ($entity instanceof TimelineInterface) {
-            return $entity->getAction();
-        } else {
-            throw new \InvalidArgumentException(sprintf('Method "%s" accepts only a ActionInterface or a TimelineInterface', $method));
         }
+
+        return $entity->getAction();
     }
 
     /**
@@ -120,9 +113,9 @@ class TimelineExtension extends AbstractExtension
      *
      * @return string
      */
-    public function renderTimeline($action, $template = null, array $variables = array())
+    public function renderTimeline($action, $template = null, array $variables = [])
     {
-        $action = $this->resolveAction($action, __METHOD__);
+        $action = $this->resolveAction($action);
 
         if (null === $template) {
             $template = $this->getDefaultTemplate($action);
@@ -152,8 +145,8 @@ class TimelineExtension extends AbstractExtension
      */
     public function getComponentVariables($action, $component)
     {
-        $values      = array();
-        $action      = $this->resolveAction($action, __METHOD__);
+        $values      = [];
+        $action      = $this->resolveAction($action);
         $component   = $action->getComponent($component);
         $isComponent = is_object($component);
 
@@ -177,9 +170,9 @@ class TimelineExtension extends AbstractExtension
      * @param  array  $variables Additional variables to pass to templates
      * @return string
      */
-    public function renderActionComponent($action, $component, array $variables = array())
+    public function renderActionComponent($action, $component, array $variables = [])
     {
-        $action = $this->resolveAction($action, __METHOD__);
+        $action = $this->resolveAction($action);
 
         if (null === $this->template) {
             $template = reset($this->resources);
@@ -203,7 +196,7 @@ class TimelineExtension extends AbstractExtension
             $types = $this->varStack[$rendering]['types'];
             $this->varStack[$rendering]['variables'] = array_replace_recursive($componentVariables, $variables);
         } else {
-            $types = array();
+            $types = [];
             // fallback to __toString of component.
             if ($component != 'action') {
                 $types[] = 'action';
@@ -261,7 +254,7 @@ class TimelineExtension extends AbstractExtension
      */
     protected function getBlocks($action)
     {
-        $action = $this->resolveAction($action, __METHOD__);
+        $action = $this->resolveAction($action);
 
         if (!$this->blocks->contains($action)) {
             $templates = $this->resources;
@@ -270,15 +263,16 @@ class TimelineExtension extends AbstractExtension
                 $templates = array_merge($templates, $this->themes[$action]);
             }
 
-            $blocks = array();
+            $blocks = [[]];
             foreach ($templates as $template) {
-                $template = $this->twig->resolveTemplate($template);
-                $templateBlocks = array();
+                $template = $this->twig->resolveTemplate($template)->unwrap();
+                $templateBlocks = [[]];
                 do {
-                    $templateBlocks = array_merge($template->getBlocks(), $templateBlocks);
-                } while (false !== $template = $template->getParent(array()));
-                $blocks = array_merge($blocks, $templateBlocks);
+                    $templateBlocks[] = $template->getBlocks();
+                } while (false !== $template = $template->getParent([]));
+                $blocks[] = array_merge(...$templateBlocks);
             }
+            $blocks = array_merge(...$blocks);
             $this->blocks->attach($action, $blocks);
         }
 
@@ -294,7 +288,7 @@ class TimelineExtension extends AbstractExtension
      */
     public function getDefaultTemplate($action)
     {
-        $action = $this->resolveAction($action, __METHOD__);
+        $action = $this->resolveAction($action);
 
         return vsprintf('@%s/%s.html.twig', array(
                     $this->config['path'],
@@ -311,7 +305,7 @@ class TimelineExtension extends AbstractExtension
      */
     public function renderContextualTimeline($action, $context = null, $format = 'html')
     {
-        $action = $this->resolveAction($action, __METHOD__);
+        $action = $this->resolveAction($action);
 
         if (null === $context) {
             $template = $this->getDefaultTemplate($action);
@@ -345,7 +339,7 @@ class TimelineExtension extends AbstractExtension
      */
     public function getContextualTemplate($action, $context, $format)
     {
-        $action = $this->resolveAction($action, __METHOD__);
+        $action = $this->resolveAction($action);
 
         return vsprintf('@%s/%s/%s.%s.twig', array(
                     $this->config['path'],
@@ -362,9 +356,9 @@ class TimelineExtension extends AbstractExtension
      *
      * @return string
      */
-    public function renderLocalizedTimeline($action, $locale = null, array $variables = array())
+    public function renderLocalizedTimeline($action, $locale = null, array $variables = [])
     {
-        $action = $this->resolveAction($action, __METHOD__);
+        $action = $this->resolveAction($action);
 
         if ($locale === null) {
             $locale = $this->config['i18n_fallback'];
@@ -406,7 +400,7 @@ class TimelineExtension extends AbstractExtension
      */
     public function getDefaultLocalizedTemplate($action, $locale)
     {
-        $action = $this->resolveAction($action, __METHOD__);
+        $action = $this->resolveAction($action);
 
         return vsprintf('@%s/%s.%s.html.twig', array(
             $this->config['path'],
@@ -433,7 +427,7 @@ class TimelineExtension extends AbstractExtension
      */
     public function setTheme($action, array $resources)
     {
-        $action = $this->resolveAction($action, __METHOD__);
+        $action = $this->resolveAction($action);
 
         $this->themes->attach($action, $resources);
         $this->blocks->detach($action);

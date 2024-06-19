@@ -11,7 +11,7 @@ class AddLocatorCompilerPass extends test
     {
         //there are 4 (3 unique) config locator services so there should be only 3 addLocator calls
         $configLocators = array('foo.service', 'bar.service');
-        $taggedServicesResult = array('baz.service' => array(), 'foo.service' => array());
+        $taggedServicesResult = array('baz.service' => [], 'foo.service' => []);
 
         //setup mocks
         $this

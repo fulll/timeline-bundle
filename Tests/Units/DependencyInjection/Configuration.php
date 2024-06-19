@@ -19,7 +19,7 @@ class Configuration extends test
         $self = $this;
 
         $this->exception(function () use ($self) {
-            $self->processConfiguration(array(array()));
+            $self->processConfiguration(array([]));
         })
             ->isInstanceOf('\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException')
             ->hasMessage('Invalid configuration for path "spy_timeline": Please define a driver or timeline_manager, action_manager')
@@ -67,7 +67,7 @@ class Configuration extends test
         return array(
             'timeline_manager' => 'foo',
             'action_manager' => 'foo',
-            'notifiers' => array(),
+            'notifiers' => [],
             'spread' => array(
                 'on_subject' => true,
                 'on_global_context' => true,

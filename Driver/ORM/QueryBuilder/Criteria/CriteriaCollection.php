@@ -9,7 +9,7 @@ class CriteriaCollection implements \IteratorAggregate
     /**
      * @var array
      */
-    protected $criterias = array();
+    protected $criterias = [];
 
     /**
      * @var integer

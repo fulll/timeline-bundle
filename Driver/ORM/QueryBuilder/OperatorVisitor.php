@@ -22,7 +22,7 @@ class OperatorVisitor implements VisitorInterface
             throw new \Exception('OperatorVisitor accepts only Operator instance');
         }
 
-        $dqlParts = array();
+        $dqlParts = [];
 
         foreach ($operator->getCriterias() as $criteria) {
             if ($criteria instanceof Operator) {

@@ -9,16 +9,11 @@ use Symfony\Component\Console\Application;
 
 class SpreadListCommand extends test
 {
-    public function beforeTestMethod($method)
-    {
-        define('STDIN', fopen("php://stdin", "r"));
-    }
-
     public function testExecute()
     {
         $this->mockGenerator()->orphanize('__construct');
         $deployer = new \mock\Spy\Timeline\Spread\Deployer();
-        $deployer->getMockController()->getSpreads = array();
+        $deployer->getMockController()->getSpreads = [];
 
         $command = new TestedCommand($deployer);
 
@@ -28,7 +23,7 @@ class SpreadListCommand extends test
         $command = $application->find('spy_timeline:spreads');
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array('command' => $command->getName()), array());
+        $commandTester->execute(array('command' => $command->getName()), []);
 
         $this->string($commandTester->getDisplay())
             ->isEqualTo('There is 0 timeline spread(s) defined'.PHP_EOL);
@@ -38,7 +33,7 @@ class SpreadListCommand extends test
         $deployer->getMockController()->getSpreads = array($spread);
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array('command' => $command->getName()), array());
+        $commandTester->execute(array('command' => $command->getName()), []);
 
         $this->string($commandTester->getDisplay())
             ->isEqualTo('There is 1 timeline spread(s) defined'.PHP_EOL.'- mock\Spy\TimelineBundle\Spread\SpreadInterface'.PHP_EOL);

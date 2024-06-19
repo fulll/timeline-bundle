@@ -64,7 +64,7 @@ class SpyTimelineExtension extends Extension
         }
 
         // filters
-        $filters       = isset($config['filters']) ? $config['filters'] : array();
+        $filters       = isset($config['filters']) ? $config['filters'] : [];
         $filterManager = $container->getDefinition('spy_timeline.filter.manager');
 
         if (isset($filters['duplicate_key'])) {
@@ -138,7 +138,7 @@ class SpyTimelineExtension extends Extension
 
     private function loadORMDriver($container, $loader, $config)
     {
-        $classes = isset($config['classes']) ? $config['classes'] : array();
+        $classes = isset($config['classes']) ? $config['classes'] : [];
 
         $parameters = array(
             'timeline', 'action', 'component', 'action_component',
@@ -168,7 +168,7 @@ class SpyTimelineExtension extends Extension
 
     private function loadODMDriver($container, $loader, $config)
     {
-        $classes = isset($config['classes']) ? $config['classes'] : array();
+        $classes = isset($config['classes']) ? $config['classes'] : [];
 
         $parameters = array(
             'timeline', 'action', 'component', 'action_component',
@@ -191,7 +191,7 @@ class SpyTimelineExtension extends Extension
 
     private function loadRedisDriver($container, $loader, $config)
     {
-        $classes = isset($config['classes']) ? $config['classes'] : array();
+        $classes = isset($config['classes']) ? $config['classes'] : [];
 
         $parameters = array(
             'action', 'component', 'action_component',

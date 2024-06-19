@@ -14,12 +14,12 @@ class TimelineManager extends AbstractTimelineManager implements TimelineManager
     /**
      * @var array
      */
-    protected $delayedQueries = array();
+    protected $delayedQueries = [];
 
     /**
      * {@inheritdoc}
      */
-    public function getTimeline(ComponentInterface $subject, array $options = array())
+    public function getTimeline(ComponentInterface $subject, array $options = [])
     {
         $resolver = new OptionsResolver();
         $resolver->setDefaults(array(
@@ -45,7 +45,7 @@ class TimelineManager extends AbstractTimelineManager implements TimelineManager
         $results = $this->resultBuilder->fetchResults($qb, $options['page'], $options['max_per_page'], $options['filter'], $options['paginate']);
 
         if ($options['group_by_action']) {
-            $actions = array();
+            $actions = [];
             foreach ($results as $result) {
                 $actions[] = $result->getAction();
             }
@@ -63,7 +63,7 @@ class TimelineManager extends AbstractTimelineManager implements TimelineManager
     /**
      * {@inheritdoc}
      */
-    public function countKeys(ComponentInterface $subject, array $options = array())
+    public function countKeys(ComponentInterface $subject, array $options = [])
     {
         $resolver = new OptionsResolver();
         $resolver->setDefaults(array(
@@ -83,7 +83,7 @@ class TimelineManager extends AbstractTimelineManager implements TimelineManager
     /**
      * {@inheritdoc}
      */
-    public function remove(ComponentInterface $subject, $actionId, array $options = array())
+    public function remove(ComponentInterface $subject, $actionId, array $options = [])
     {
         $resolver = new OptionsResolver();
         $resolver->setDefaults(array(
@@ -109,7 +109,7 @@ class TimelineManager extends AbstractTimelineManager implements TimelineManager
     /**
      * {@inheritdoc}
      */
-    public function removeAll(ComponentInterface $subject, array $options = array())
+    public function removeAll(ComponentInterface $subject, array $options = [])
     {
         $resolver = new OptionsResolver();
         $resolver->setDefaults(array(
@@ -131,7 +131,7 @@ class TimelineManager extends AbstractTimelineManager implements TimelineManager
      */
     public function flush()
     {
-        $results = array();
+        $results = [];
         $manager = $this->objectManager;
         try {
             $manager->getConnection()->beginTransaction();
@@ -145,7 +145,7 @@ class TimelineManager extends AbstractTimelineManager implements TimelineManager
             $manager->flush();
             $manager->getConnection()->commit();
 
-            $this->delayedQueries = array();
+            $this->delayedQueries = [];
         } catch (\Exception $e) {
             if ($manager->getConnection()->isTransactionActive()) {
                 $manager->getConnection()->rollback();

@@ -9,11 +9,6 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class DeployActionCommand extends test
 {
-    public function beforeTestMethod($method)
-    {
-        define('STDIN', fopen("php://stdin", "r"));
-    }
-
     public function testNoTimeline()
     {
         $actionManager = new \mock\Spy\Timeline\Driver\ActionManagerInterface();
@@ -21,7 +16,7 @@ class DeployActionCommand extends test
         $deployer      = new \mock\Spy\Timeline\Spread\Deployer();
         $logger        = new \mock\Psr\Log\LoggerInterface();
 
-        $actionManager->getMockController()->findActionsWithStatusWantedPublished = array();
+        $actionManager->getMockController()->findActionsWithStatusWantedPublished = [];
 
         $command = new TestedCommand($actionManager, $deployer, $logger);
 
@@ -31,7 +26,7 @@ class DeployActionCommand extends test
         $command = $application->find('spy_timeline:deploy');
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array('command' => $command->getName()), array());
+        $commandTester->execute(array('command' => $command->getName()), []);
 
         $this->mock($actionManager)
             ->call('findActionsWithStatusWantedPublished')
@@ -60,7 +55,7 @@ class DeployActionCommand extends test
         $command = $application->find('spy_timeline:deploy');
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array('command' => $command->getName()), array());
+        $commandTester->execute(array('command' => $command->getName()), []);
 
         $this->mock($actionManager)
             ->call('findActionsWithStatusWantedPublished')
