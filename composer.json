@@ -10,18 +10,18 @@
         "homepage": "https://github.com/stephpy/timeline-bundle/contributors"
     }],
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.0",
         "stephpy/timeline": "^1.0",
-        "symfony/framework-bundle": "~4.0|~5.0",
-        "symfony/options-resolver": "~4.0|~5.0",
-        "twig/twig": "~2.0"
+        "symfony/framework-bundle": ">=5.4",
+        "symfony/options-resolver": ">=5.4",
+        "twig/twig": ">=3.0"
     },
     "require-dev": {
         "atoum/atoum": "4.*",
-        "doctrine/orm": "^2.6",
-        "symfony/console": "~4.0|~5.0",
-        "symfony/twig-bundle": "~4.0|~5.0",
-        "symfony/expression-language": "~4.0|~5.0"
+        "doctrine/orm": ">=2.6",
+        "symfony/console": ">=5.4",
+        "symfony/twig-bundle": ">=5.4",
+        "symfony/expression-language": ">=5.4"
     },
     "repositories": [
         { "type": "vcs", "url": "https://github.com/fulll/timeline.git" }
