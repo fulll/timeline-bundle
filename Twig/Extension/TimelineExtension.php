@@ -176,7 +176,7 @@ class TimelineExtension extends AbstractExtension
 
         if (null === $this->template) {
             $template = reset($this->resources);
-            $this->template = $this->twig->resolveTemplate($template);
+            $this->template = $this->twig->resolveTemplate($template)->unwrap();
         }
 
         $componentVariables = $this->getComponentVariables($action, $component);
