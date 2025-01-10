@@ -5,6 +5,7 @@ namespace Spy\TimelineBundle\Command;
 use Psr\Log\LoggerInterface;
 use Spy\Timeline\Driver\ActionManagerInterface;
 use Spy\Timeline\Spread\Deployer;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -14,11 +15,12 @@ use Symfony\Component\Console\Output\OutputInterface;
  * This command will deploy each actions (see limit option) which
  * has PUBLISHED on status_wanted.
  */
+#[AsCommand(
+    name: 'spy_timeline:deploy',
+    description: 'Deploy on spreads for waiting action',
+)]
 class DeployActionCommand extends Command
 {
-    protected static $defaultName = 'spy_timeline:deploy';
-    protected static $defaultDescription = 'Deploy on spreads for waiting action';
-
     private ActionManagerInterface $actionManager;
     private Deployer $deployer;
     private LoggerInterface $logger;
@@ -36,10 +38,9 @@ class DeployActionCommand extends Command
         $this->logger = $logger;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
-            ->setDescription(self::$defaultDescription)
             ->addOption('limit', 'l', InputOption::VALUE_OPTIONAL, 'How many actions will be deployed', 200)
         ;
     }

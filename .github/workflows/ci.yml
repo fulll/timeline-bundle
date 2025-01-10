@@ -1,0 +1,34 @@
+name: Application CI
+
+on: pull_request
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    name: PHP CI ${{ matrix.php-versions }}
+    strategy:
+      matrix:
+        php-versions:
+          - 8.3
+          - 8.4
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          tools: composer:v2
+        env:
+          runner: self-hosted
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress
+      - name: Run unit tests
+        run: ./bin/phpunit
