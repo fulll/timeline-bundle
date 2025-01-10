@@ -1,6 +1,6 @@
 {
     "name": "stephpy/timeline-bundle",
-    "description": "Symfony2 bundle to make timeline",
+    "description": "Symfony bundle to make timeline",
     "keywords": ["timeline", "notification", "symfony", "bundle"],
     "type": "symfony-bundle",
     "homepage": "https://github.com/stephpy/timeline-bundle",
@@ -10,15 +10,16 @@
         "homepage": "https://github.com/stephpy/timeline-bundle/contributors"
     }],
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.3",
         "stephpy/timeline": "^1.0",
         "symfony/framework-bundle": ">=5.4",
         "symfony/options-resolver": ">=5.4",
         "twig/twig": ">=3.0"
     },
     "require-dev": {
-        "atoum/atoum": "4.*",
-        "doctrine/orm": ">=2.6",
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpunit/phpunit": "^9.6",
+        "doctrine/orm": "^2.6",
         "symfony/console": ">=5.4",
         "symfony/twig-bundle": ">=5.4",
         "symfony/expression-language": ">=5.4"

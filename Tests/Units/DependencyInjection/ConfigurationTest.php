@@ -2,48 +2,40 @@
 
 namespace Spy\TimelineBundle\Tests\Units\DependencyInjection;
 
-use atoum\atoum\test;
+use PHPUnit\Framework\TestCase;
 use Spy\TimelineBundle\DependencyInjection\Configuration as ConfigurationTested;
 use Symfony\Component\Config\Definition\Processor;
 
-class Configuration extends test
+class ConfigurationTest extends TestCase
 {
     public function testNoConfiguration()
     {
-        $this->array($this->processConfiguration(array($this->getDefaultInput())))
-            ->isEqualTo($this->getDefaultOutput());
+        $this->assertEquals($this->getDefaultOutput(), $this->processConfiguration(array($this->getDefaultInput())));
     }
 
     public function testNoDriversAndNoManagers()
     {
-        $self = $this;
+        $this->expectException(\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
+        $this->expectExceptionMessage('Invalid configuration for path "spy_timeline": Please define a driver or timeline_manager, action_manager');
 
-        $this->exception(function () use ($self) {
-            $self->processConfiguration(array([]));
-        })
-            ->isInstanceOf('\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException')
-            ->hasMessage('Invalid configuration for path "spy_timeline": Please define a driver or timeline_manager, action_manager')
-            ;
+        $this->processConfiguration(array(array()));
     }
 
     public function testMultipleDrivers()
     {
-        $self = $this;
-        $this->exception(function () use ($self) {
-            $self->processConfiguration(array(array(
-                'drivers' => array(
-                    'orm' => array(
-                        'object_manager' => 'foo',
-                    ),
-                    'odm' => array(
-                        'object_manager' => 'foo',
-                    ),
+        $this->expectException(\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
+        $this->expectExceptionMessage('Invalid configuration for path "spy_timeline.drivers": Please define only one driver.');
+
+        $this->processConfiguration(array(array(
+            'drivers' => array(
+                'orm' => array(
+                    'object_manager' => 'foo',
                 ),
-            )));
-        })
-            ->isInstanceOf('\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException')
-            ->hasMessage('Invalid configuration for path "spy_timeline.drivers": Please define only one driver.')
-            ;
+                'odm' => array(
+                    'object_manager' => 'foo',
+                ),
+            ),
+        )));
     }
 
     public function processConfiguration($config)
