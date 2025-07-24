@@ -15,9 +15,9 @@ class DoctrineORM implements LocatorInterface
     protected $registry;
 
     /**
-     * @param ManagerRegistry $registry registry
+     * @param ?ManagerRegistry $registry registry
      */
-    public function __construct(ManagerRegistry $registry = null)
+    public function __construct(?ManagerRegistry $registry = null)
     {
         $this->registry = $registry;
     }
