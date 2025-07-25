@@ -20,6 +20,11 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * @var integer
      */
+    protected $page;
+
+    /**
+     * @var integer
+     */
     protected $nbResults;
 
     /**
@@ -51,7 +56,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function getLastPage()
+    public function getLastPage(): int
     {
         return $this->lastPage;
     }
@@ -59,7 +64,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function getPage()
+    public function getPage(): int
     {
         return $this->page;
     }
@@ -67,7 +72,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function haveToPaginate()
+    public function haveToPaginate(): bool
     {
         return $this->getLastPage() > 1;
     }
@@ -75,7 +80,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         return $this->nbResults;
     }
@@ -83,7 +88,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * @param array $items items
      */
-    public function setItems(array $items)
+    public function setItems(array $items): void
     {
         $this->items = $items;
     }
@@ -91,7 +96,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * @return \ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->items);
     }
@@ -99,7 +104,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * @return integer
      */
-    public function count()
+    public function count(): int
     {
         return count($this->items);
     }
@@ -108,7 +113,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
      * @param mixed $offset
      * @param mixed $value
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->items[] = $value;
@@ -121,7 +126,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
      * @param  mixed   $offset
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->items[$offset]);
     }
@@ -129,7 +134,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * @param mixed $offset
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->items[$offset]);
     }
@@ -138,8 +143,8 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
      * @param  mixed $offset
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
-        return isset($this->items[$offset]) ? $this->items[$offset] : null;
+        return $this->items[$offset] ?? null;
     }
 }

@@ -131,6 +131,13 @@ class QueryBuilder extends BaseQueryBuilder
             $visitor = new OperatorVisitor();
         } elseif ($this->criterias instanceof Asserter) {
             $visitor = new AsserterVisitor();
+        } else {
+            throw new \InvalidArgumentException(sprintf(
+                'Criterias must be an instance of %s or %s, %s given',
+                Operator::class,
+                Asserter::class,
+                get_class($this->criterias)
+            ));
         }
 
         $criteriaCollection = new CriteriaCollection();

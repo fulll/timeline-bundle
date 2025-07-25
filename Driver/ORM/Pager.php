@@ -58,7 +58,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function getLastPage()
+    public function getLastPage(): int
     {
         return $this->lastPage;
     }
@@ -66,7 +66,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function getPage()
+    public function getPage(): int
     {
         return $this->page;
     }
@@ -74,7 +74,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function haveToPaginate()
+    public function haveToPaginate(): bool
     {
         return $this->getLastPage() > 1;
     }
@@ -82,7 +82,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         return $this->nbResults;
     }
@@ -90,7 +90,7 @@ class Pager implements PagerInterface, \IteratorAggregate, \Countable, \ArrayAcc
     /**
      * @param array $items items
      */
-    public function setItems(array $items)
+    public function setItems(array $items): void
     {
         $this->items = $items;
     }

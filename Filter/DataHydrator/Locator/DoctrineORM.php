@@ -60,7 +60,7 @@ class DoctrineORM implements LocatorInterface
         }
 
         if (count($fields) > 1) {
-            return $this->locateComposite($objectManager, $metadata, $model, $components, $oids, $fields);
+            $this->locateComposite($objectManager, $metadata, $model, $components, $oids, $fields);
         }
 
         $alias = 'r';
