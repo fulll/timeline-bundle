@@ -10,7 +10,7 @@
         "homepage": "https://github.com/stephpy/timeline-bundle/contributors"
     }],
     "require": {
-        "php": ">=8.4",
+        "php": ">=8.3",
         "stephpy/timeline": "^1.0",
         "symfony/framework-bundle": ">=5.4",
         "symfony/options-resolver": ">=5.4",
