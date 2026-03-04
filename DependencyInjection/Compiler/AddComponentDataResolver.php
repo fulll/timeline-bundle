@@ -13,7 +13,7 @@ class AddComponentDataResolver implements CompilerPassInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $actionManager = $container->findDefinition('spy_timeline.action_manager');
         $componentDataResolver = $container->findDefinition('spy_timeline.resolve_component.resolver');

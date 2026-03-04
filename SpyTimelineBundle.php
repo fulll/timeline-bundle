@@ -16,7 +16,7 @@ class SpyTimelineBundle extends Bundle
     /**
      * @param ContainerBuilder $container
      */
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new AddSpreadCompilerPass());
         $container->addCompilerPass(new AddFilterCompilerPass());

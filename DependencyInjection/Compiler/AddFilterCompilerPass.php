@@ -10,7 +10,7 @@ class AddFilterCompilerPass implements CompilerPassInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $filterManager = $container->getDefinition('spy_timeline.filter.manager');
 

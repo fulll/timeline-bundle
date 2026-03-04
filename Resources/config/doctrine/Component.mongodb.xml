@@ -8,6 +8,8 @@
         <field name="model" fieldName="model" type="string" />
         <field name="identifier" fieldName="identifier" type="string" />
         <field name="hash" fieldName="hash" type="string" />
+        <field name="identifierMigrated" fieldName="identifier_migrated" type="string" length="255" nullable="true" />
+        <field name="hashMigrated" fieldName="hash_migrated" type="string" length="255" nullable="true" unique="true" />
         <indexes>
             <index>
                 <key name="model" order="asc" />

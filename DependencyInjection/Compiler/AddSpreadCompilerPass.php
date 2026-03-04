@@ -10,7 +10,7 @@ class AddSpreadCompilerPass implements CompilerPassInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $alias            = $container->getAlias('spy_timeline.spread.deployer');
         $spreadDeployer   = $container->getDefinition((string) $alias);

@@ -8,5 +8,7 @@
         <field name="model" column="model" type="string" length="255" />
         <field name="identifier" column="identifier" type="array" />
         <field name="hash" column="hash" type="string" unique="true" />
+        <field name="identifierMigrated" column="identifier_migrated" type="string" length="255" nullable="true" />
+        <field name="hashMigrated" column="hash_migrated" type="string" length="255" nullable="true" unique="true" />
     </mapped-superclass>
 </doctrine-mapping>

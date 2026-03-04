@@ -10,7 +10,7 @@ class AddDeliveryMethodCompilerPass implements CompilerPassInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         // we only do a call if the delivery method is immediate.
         if ($container->getParameter('spy_timeline.spread.deployer.delivery') !== "immediate") {

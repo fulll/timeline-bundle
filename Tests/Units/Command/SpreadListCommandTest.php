@@ -17,7 +17,7 @@ class SpreadListCommandTest extends TestCase
         $command = new SpreadListCommand($deployer);
 
         $application = new Application();
-        $application->add($command);
+        $application->addCommand($command);
 
         $command = $application->find('spy_timeline:spreads');
 
@@ -38,7 +38,7 @@ class SpreadListCommandTest extends TestCase
         $command = new SpreadListCommand($deployer);
 
         $application = new Application();
-        $application->add($command);
+        $application->addCommand($command);
 
         $command = $application->find('spy_timeline:spreads');
 
