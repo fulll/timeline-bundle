@@ -16,7 +16,7 @@ class AddLocatorCompilerPass implements CompilerPassInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $parameterDefinitions = $this->getLocatorDefinitionsFromParameter($container);
         $taggedServiceDefinitions = $this->getLocatorDefinitionsFromTaggedServices($container);

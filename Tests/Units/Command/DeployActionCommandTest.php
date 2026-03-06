@@ -20,7 +20,7 @@ class DeployActionCommandTest extends TestCase
         $command = new DeployActionCommand($actionManager, $deployer, $logger);
 
         $application = new Application();
-        $application->add($command);
+        $application->addCommand($command);
 
         $command = $application->find('spy_timeline:deploy');
 
@@ -43,7 +43,7 @@ class DeployActionCommandTest extends TestCase
         $command = new DeployActionCommand($actionManager, $deployer, $logger);
 
         $application = new Application();
-        $application->add($command);
+        $application->addCommand($command);
 
         $command = $application->find('spy_timeline:deploy');
 

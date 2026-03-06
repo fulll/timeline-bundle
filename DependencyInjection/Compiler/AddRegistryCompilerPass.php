@@ -10,7 +10,7 @@ class AddRegistryCompilerPass implements CompilerPassInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasParameter('spy_timeline.resolve_component.doctrine_registries')) {
             return;
