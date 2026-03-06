@@ -11,7 +11,7 @@
     }],
     "require": {
         "php": ">=8.3",
-        "stephpy/timeline": "dev-maintenance-629-migrate-component-properties-to-json-string as 1.1.1",
+        "stephpy/timeline": "^1.2",
         "symfony/framework-bundle": ">=5.4",
         "symfony/options-resolver": ">=5.4",
         "twig/twig": ">=3.0"
