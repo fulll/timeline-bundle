@@ -6,10 +6,10 @@
 
     <mapped-superclass name="Spy\TimelineBundle\Document\Component">
         <field name="model" fieldName="model" type="string" />
-        <field name="identifier" fieldName="identifier" type="string" />
-        <field name="hash" fieldName="hash" type="string" />
-        <field name="identifierMigrated" fieldName="identifier_migrated" type="string" length="255" nullable="true" />
-        <field name="hashMigrated" fieldName="hash_migrated" type="string" length="255" nullable="true" unique="true" />
+        <field name="identifier" fieldName="identifier" type="string" length="255" />
+        <field name="hash" fieldName="hash" type="string" length="255" />
+        <field name="identifierBackup" fieldName="identifier_backup" type="string" length="255" nullable="true" />
+        <field name="hashBackup" fieldName="hash_backup" type="string" length="255" nullable="true" unique="true" />
         <indexes>
             <index>
                 <key name="model" order="asc" />

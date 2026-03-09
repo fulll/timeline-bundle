@@ -73,11 +73,11 @@ class CriteriaField
         }
 
         if ('identifier' === $field) {
-            if (is_scalar($value)) {
-                $value = (string) $value;
+            if (is_array($value)) {
+                $value = reset($value);
             }
 
-            $value = serialize($value); // identifier is a serialized field.
+            $value = (string) $value;
         }
 
         return $value;

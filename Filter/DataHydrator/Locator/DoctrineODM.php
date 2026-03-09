@@ -78,10 +78,10 @@ class DoctrineODM implements LocatorInterface
         $identifiers = [];
         $identifiers[$field] = (string) $metadata->reflFields[$field]->getValue($result);
 
-        if (count($identifiers) == 1) {
-            $identifiers = (string) current($identifiers);
+        if (is_array($identifiers)) {
+            $identifiers = reset($identifiers);
         }
 
-        return sprintf('%s#%s', $model, serialize($identifiers));
+        return sprintf('%s##%s', $model, (string) $identifiers);
     }
 }

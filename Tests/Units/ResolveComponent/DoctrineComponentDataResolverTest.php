@@ -78,6 +78,6 @@ class DoctrineComponentDataResolverTest extends TestCase
         $result = $resolver->resolveComponentData($resolve);
 
         $this->assertEquals($model, $result->getModel());
-        $this->assertEquals($identifier, $result->getIdentifier());
+        $this->assertEquals('bar', $result->getIdentifier());
     }
 }
