@@ -112,10 +112,10 @@ class DoctrineORM implements LocatorInterface
             return sprintf('%s.%s', $alias, $v);
         }, $fields);
 
-        $concat = implode(",'#',", $dqlFields);
+        $concat = implode(",'##',", $dqlFields);
 
         $oids = array_map(function($v) {
-            return implode('#', $v); },
+            return implode('##', $v); },
         $oids);
 
         $qb = $objectManager->createQueryBuilder($alias);
@@ -158,10 +158,10 @@ class DoctrineORM implements LocatorInterface
             $identifiers[$field] = (string) $metadata->reflFields[$field]->getValue($result);
         }
 
-        if (count($identifiers) == 1) {
-            $identifiers = (string) current($identifiers);
+        if (is_array($identifiers)) {
+            $identifiers = reset($identifiers);
         }
 
-        return sprintf('%s#%s', $model, serialize($identifiers));
+        return sprintf('%s##%s', $model, (string) $identifiers);
     }
 }

@@ -5,10 +5,14 @@
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <mapped-superclass name="Spy\TimelineBundle\Entity\Component" table="spy_timeline_component">
+        <indexes>
+            <index name="idx_timeline_component_identifier" columns="identifier_backup"/>
+            <index name="idx_timeline_component_identifier_migrated" columns="identifier"/>
+        </indexes>
         <field name="model" column="model" type="string" length="255" />
-        <field name="identifier" column="identifier" type="array" />
-        <field name="hash" column="hash" type="string" unique="true" />
-        <field name="identifierMigrated" column="identifier_migrated" type="string" length="255" nullable="true" />
-        <field name="hashMigrated" column="hash_migrated" type="string" length="255" nullable="true" unique="true" />
+        <field name="identifierBackup" column="identifier_backup" type="array" nullable="true" />
+        <field name="hashBackup" column="hash_backup" type="string" nullable="true" unique="true" />
+        <field name="identifier" column="identifier" type="string" length="255" />
+        <field name="hash" column="hash" type="string" length="255" unique="true" />
     </mapped-superclass>
 </doctrine-mapping>
